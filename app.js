@@ -1,8 +1,8 @@
 var Question = { 
-	text: "",  
+	text: "", 
 	answerInformation: null, 
 	displayed: false 
-} 
+}
 
 var Answer = { 
 	a: "", 
