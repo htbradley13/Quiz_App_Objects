@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Golf Quiz App</title>
+	<meta charset="UTF-8">
+	<meta name="Description" content="Golf Quiz App">
+	<meta name="keywords" content="javaScript, functions, objects, jQuery, HTML, CSS">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+	<link rel="stylesheet" href="main.css">
+</head>
+<body>
+	<!-- This is the first page when the page is loaded -->
+	<div class="pages" id="startPage">
+
+		<h1>Golf Quiz</h1>
+
+		<div class="quizControlButtons">
+			<button class="button" id="startButton">Start</button>
+		</div>
+
+	</div>
+
+	<header id="questionHeader">
+
+		<h1 id="questionLine">Question #<span id="questionCount">1</span> of 5</h1>
+		<h1 id="scoreLine">Score: <span id="totalCorrect">0</span>/5</h1>
+
+	</header>
+		<!-- This is the page for question number 1 -->
+	<div class="pages" id="questionPage">
+
+		<!-- Question -->
+		<h3 id="questionText"></h3>
+
+		<!-- Multiple Choice Answer Options Form. Giving them the same "name" attribute makes it so that only one radio button can be selected at a time. Adding the "required" attribute to at least one input will make an answer required. I put it on each one, incase an answer ever has to be removed, they all can trigger the requirement.  -->
+		<form id="questionAnswers">
+			<input id="inputA" type="radio" name="answersOne" class="choiceA" required>
+			<label id="answerA"></label>	
+			<input id="inputB" type="radio" name="answersOne" class="choiceB" required>
+			<label id="answerB"></label>	
+			<input id="inputC" type="radio" name="answersOne" class="choiceC" required>
+			<label id="answerC"></label>	
+			<input id="inputD" type="radio" name="answersOne" class="choiceD" required>
+			<label id="answerD"></label>	
+			<input type="submit" name="answersOne" class="button" value="Submit">
+		</form>
+
+	</div>
+
+	<div class="pages" id="finalPage">
+
+		<div class="quizControlButtons">
+			<button class="button" id="newGameButton">New Quiz</button>
+		</div>
+
+	</div>
+
+<!-- JavaScript Sources -->
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>

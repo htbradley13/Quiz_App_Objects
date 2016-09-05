@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+#startPage, #finalPage {
+	text-align: center;
+	margin: 0 auto;
+}
+
+h1 {
+	text-align: center;
+}
+
+.button {
+	padding: 5px;
+}
+
+#questionHeader, #questionPage, #finalPage {
+	display: none;
+}
