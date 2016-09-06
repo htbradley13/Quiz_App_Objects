@@ -150,6 +150,7 @@ $(document).ready(function(){
 	/* When the Start button is clicked, the first question is shown */
 	$("#startButton").mouseup(function() {
 
+		AppReset();
 		DisplayQuestion(question1);
 
 	});
@@ -159,7 +160,7 @@ $(document).ready(function(){
 		event.preventDefault();
 
 		/* Set variable to the value of the user's answer, based on selected radio button */
-		var userAnswerValue = $("input[name=answersOne]:checked", "#questionAnswers").val();
+		var userAnswerValue = +($("input[name=answersOne]:checked", "#questionAnswers").val());
 
 		/* Setting question count variable, convert to number from string as well */
         var currentQuestion = +($("#questionCount").text());
@@ -168,9 +169,9 @@ $(document).ready(function(){
 
 		for (i = 0; i < questionList.length; i++){ 
 	 		if (questionList[i].displayed){ 
-	 			var nextquestion = questionList[i + 1]; 
-	 			questionList[i].displayed == false;
-	 			DisplayQuestion(nextquestion);
+	 			var nextQuestion = questionList[i + 1]; 
+	 			questionList[i].displayed = false;
+	 			DisplayQuestion(nextQuestion);	 			
 	 			$("input[name = answersOne]").prop("checked", false); 
 	 			break;
 	 		 	}
