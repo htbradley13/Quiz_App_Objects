@@ -154,7 +154,7 @@ $(document).ready(function(){
 
 	});
 
-    $("#questionAnswers").submit(function(event) {
+    $("#questionAnswers").submit(function(event) { 
 
 		event.preventDefault();
 
