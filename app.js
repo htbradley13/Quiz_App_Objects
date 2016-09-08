@@ -73,19 +73,19 @@ question5.answerInformation = answer5;
 var questionList = [question1, question2, question3, question4, question5];
 
 function DisplayQuestion(ques){
-	if (ques != null){ 
+	if (questionList[ques] != null){ 
 		$("#startPage").hide();
-		$("#questionText").text(ques.text); 
-		$("#answerA").text(ques.answerInformation.a); 
-		$("#answerB").text(ques.answerInformation.b); 
-		$("#answerC").text(ques.answerInformation.c); 
-		$("#answerD").text(ques.answerInformation.d);
+		$("#questionText").text(questionList[ques].text); 
+		$("#answerA").text(questionList[ques].answerInformation.a); 
+		$("#answerB").text(questionList[ques].answerInformation.b); 
+		$("#answerC").text(questionList[ques].answerInformation.c); 
+		$("#answerD").text(questionList[ques].answerInformation.d);
 
-		$("#inputA").val(ques.answerInformation.a);
-		$("#inputB").val(ques.answerInformation.b);
-		$("#inputC").val(ques.answerInformation.c);
-		$("#inputD").val(ques.answerInformation.d);
-		ques.displayed = true;
+		$("#inputA").val(questionList[ques].answerInformation.a);
+		$("#inputB").val(questionList[ques].answerInformation.b);
+		$("#inputC").val(questionList[ques].answerInformation.c);
+		$("#inputD").val(questionList[ques].answerInformation.d);
+		questionList[ques].displayed = true;
 		$("#questionHeader").show();
 		$("#questionPage").show();
 	} else {
@@ -105,7 +105,7 @@ function ValidateAnswer(question, answer){
 		correctAnswerTally();
 	}
 	else {
-		alert("Incorrect. The correct answer is A: (-2)");
+		alert("Incorrect. The correct answer is " + y.answerInformation.correct);
 	}
 
 	/* Invoke question count tally function */
@@ -113,11 +113,22 @@ function ValidateAnswer(question, answer){
 }
 
 function AppReset(){ 
-	
-	$('#questionPage').hide();
-	$('#questionHeader').hide();
-	$('#finalPage').hide();  
-	$('#startPage').show();
+
+	$('#finalPage').hide();
+	$('#questionPage').show();
+	$('#questionHeader').show();
+	$('#questionLine').show();
+
+	/* Set HTML text back to original values */
+	$("#totalCorrect").text("0");
+	$("#questionCount").text("1");
+
+	/* Resets the values of the form radio answers of the quiz, when quiz starts over */
+	document.getElementById('questionAnswers').reset();
+
+	/* Reset global variables to start over */
+	currentQuestion = +($("#questionCount").text());
+	correctAnswerCount = +($("#totalCorrect").text());
 }
 
 /* Setting question count variable, convert to number from string as well */
@@ -140,7 +151,6 @@ function AppReset(){
 
 $(document).ready(function(){ 
 	
-	AppReset();
 /*	Could use this instead of .mouseup
 	$('#startButton').on('click', function(){
 		DisplayQuestion(question1);
@@ -150,34 +160,44 @@ $(document).ready(function(){
 	/* When the Start button is clicked, the first question is shown */
 	$("#startButton").mouseup(function() {
 
-		DisplayQuestion(question1);
+		AppReset();
+
+		/* Calls function to display the first question, which is 0 in the array questionList */
+		DisplayQuestion(0);
 
 	});
 
-    $("#questionAnswers").submit(function(event) { 
+    $("#questionAnswers").submit(function(event) {
 
 		event.preventDefault();
 
 		/* Set variable to the value of the user's answer, based on selected radio button */
 		var userAnswerValue = $("input[name=answersOne]:checked", "#questionAnswers").val();
 
-		/* Setting question count variable, convert to number from string as well */
-        var currentQuestion = +($("#questionCount").text());
-
+		/* Validate the user's answer based on the current question, calling ValidateAnswer function */
 		ValidateAnswer(currentQuestion, userAnswerValue);
 
-		for (i = 0; i < questionList.length; i++){ 
-	 		if (questionList[i].displayed){ 
-	 			var nextquestion = questionList[i + 1]; 
-	 			questionList[i].displayed == false;
-	 			DisplayQuestion(nextquestion);
+		/* Loops through as long as i <= the array length, which is 5 questions */
+		for (i = 0; i <= questionList.length; i++){ 
+	 		if(i == 4){
+	 			$("#questionLine").hide();
+	 			$("#questionPage").hide();
+	 			$("#finalPage").show();
+	 			break;
+	 		}
+	 		else if(questionList[i].displayed){  
+	 			questionList[i].displayed = false;
+	 			DisplayQuestion(i + 1);	
+	 			/* Resets radio button answers of questions to unchecked */ 			
 	 			$("input[name = answersOne]").prop("checked", false); 
 	 			break;
 	 		 	}
-	 		 else {
-	 		 	$("#questionLine").hide();
-	 		 	$("finalPage").show();
-	 		 }
     	};
+	});
+
+    /* Same as the startButton function above, that starts the quiz */
+	$("#newGameButton").mouseup(function(){
+		AppReset();
+		DisplayQuestion(0);
 	});
 }); 
